@@ -175,11 +175,17 @@ launch() {
         setsid -f "$EXE" "$(basename "$DSK")" </dev/null >/dev/null 2>&1
         return
     fi
+    if [ "$emu" = rvm ]; then
+        # RVM no carga el disco con ruta absoluta de Windows (E:\...): como en los antiguos
+        # winrun.sh, se lanza desde la carpeta del .dsk y con solo el nombre del fichero
+        cd "$(dirname "$DSK")"
+        setsid -f "$EXE" -b=cpc6128 -i "$(basename "$DSK")" -c="run\"$RUNNAME\n" </dev/null >/dev/null 2>&1
+        return
+    fi
     cd "$(dirname "$EXE")"   # cap32 busca cap32.cfg en su propia carpeta
     case "$emu" in
         cap32)  setsid -f "$EXE" "$dsk" -a "run\"$RUNNAME" </dev/null >/dev/null 2>&1 ;;
         winape) setsid -f "$EXE" "$dsk" "/A:$RUNNAME" </dev/null >/dev/null 2>&1 ;;
-        rvm)    setsid -f "$EXE" -b=cpc6128 -i "$dsk" -c="run \"$RUNNAME\n" </dev/null >/dev/null 2>&1 ;;
     esac
 }
 
