@@ -1,0 +1,6 @@
+build/
+
+# Herramientas de terceros (binarios y ROMs): no se versionan, ver README.md
+tools/rasm/
+tools/cap32/*
+!tools/cap32/cap32.cfg.tmpl
