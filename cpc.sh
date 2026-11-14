@@ -168,11 +168,18 @@ launch() {
     dsk=$(emu_path "$DSK")
     echo "Lanzando $emu: RUN\"$RUNNAME\""
     # El emulador se lanza desacoplado de la terminal (setsid) para no bloquearla
+    if [ "$emu" = winape ] && [[ "$EXE" != *.exe ]]; then
+        # cpct_winape (script de CPCtelera): quiere el DSK con ruta relativa al directorio
+        # actual (hace wslpath -w $(pwd)/<ruta>) y ya hace el autorun él solo (no admite /A:)
+        cd "$(dirname "$DSK")"
+        setsid -f "$EXE" "$(basename "$DSK")" </dev/null >/dev/null 2>&1
+        return
+    fi
     cd "$(dirname "$EXE")"   # cap32 busca cap32.cfg en su propia carpeta
     case "$emu" in
         cap32)  setsid -f "$EXE" "$dsk" -a "run\"$RUNNAME" </dev/null >/dev/null 2>&1 ;;
         winape) setsid -f "$EXE" "$dsk" "/A:$RUNNAME" </dev/null >/dev/null 2>&1 ;;
-        rvm)    setsid -f "$EXE" -b=cpc6128 -i "$dsk" -c="run\"$RUNNAME\n" </dev/null >/dev/null 2>&1 ;;
+        rvm)    setsid -f "$EXE" -b=cpc6128 -i "$dsk" -c="run \"$RUNNAME\n" </dev/null >/dev/null 2>&1 ;;
     esac
 }
 

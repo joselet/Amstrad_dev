@@ -22,6 +22,7 @@ Programas y pruebas para Amstrad CPC: BASIC y C/ensamblador con CPCtelera. El us
   - `.qbas`: primero `qbas2bas/qbas2bas.sh`, luego como `.bas`.
   - Carpeta con `src/`: regenera con `cpct_mkproject` lo que falte de la plantilla (`Makefile`, `cfg/`, `exp/`...), y luego `make`.
   - Carpeta con un único `.bas`/`.qbas`: lo usa directamente.
+- Trampas de emuladores: `RVM` en `cpc.conf` es solo la ruta al `.exe` (los argumentos los pone `cpc.sh`); `cpct_winape` exige el DSK con ruta relativa al directorio actual y no admite `/A:` (`launch()` ya lo contempla). Sin probar en un PC con WinAPE/RVM aún.
 - Rutas de emuladores en `cpc.conf` (local, no versionado; plantilla `cpc.conf.example`). En este PC: Caprice32 en `../Amstrad_asm/tools/cap32/` (fuera del repo).
 
 ## Estructura y convenciones

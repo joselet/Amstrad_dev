@@ -3,23 +3,19 @@
 # Las rutas son de Linux: desde WSL los discos de Windows están en /mnt/<letra>/...
 
 # Emulador por defecto: cap32, winape o rvm (se puede cambiar con ./cpc.sh run ... -e winape)
-EMU=winape
+EMU=cap32
 
 # Caprice32 (portable, no necesita instalarse). En Linux nativo basta con CAP32=cap32 si está en el PATH.
 CAP32=/mnt/e/cajondesastre/test/amstrad_dev/Amstrad_asm/tools/cap32/cap32.exe
 
-# WinAPE
-EMU=winape
+# WinAPE. Dos opciones:
+#  - WINAPE=cpct_winape : script de CPCtelera (WinAPE debe estar ya configurado con él;
+#    compruébalo a mano: cpct_winape carpeta/fichero.dsk)
+#  - WINAPE=/mnt/c/.../WinAPE.exe : el .exe directamente
 WINAPE=cpct_winape
-# me ha fallado aunque lanzando esto desde wsl me ha funcionado:
-# cpct_winape vaqueros/vaqueros.dsk
 
-# RetroVirtualMachine
-EMU=rvm
-RVM="/mnt/d/RETRO/cpc6128/emu/retroVirtualMachine/RetroVirtualMachine.exe -b=cpc6128 -i "
-# me ha fallado aunque lanzando esto desde wsl me ha funcionado:
-# /mnt/d/RETRO/cpc6128/emu/retroVirtualMachine/RetroVirtualMachine.exe -b=cpc6128 -i vaqueros/vaqueros.dsk -c="run \"vaqueros\n"
-
+# RetroVirtualMachine: SOLO la ruta al .exe, sin argumentos (cpc.sh añade -b=cpc6128 -i ... -c=...)
+RVM=/mnt/d/RETRO/cpc6128/emu/retroVirtualMachine/RetroVirtualMachine.exe
 
 # Solo si los comandos cpct_* no están en el PATH (p.ej. ~/cpctelera/cpctelera)
 # CPCT_PATH=
