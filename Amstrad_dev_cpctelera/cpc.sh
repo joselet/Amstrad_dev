@@ -178,11 +178,11 @@ launch() {
     if [ "$emu" = rvm ]; then
         # RVM no carga el disco con ruta absoluta de Windows (E:\...): como en los antiguos
         # winrun.sh, se lanza desde la carpeta del .dsk y con solo el nombre del fichero
-        # Sin setsid: RVM falla ("tcgetpgrp failed: not a tty") si se le quita la terminal;
-        # se lanza en segundo plano (&) y con disown para que no bloquee la terminal
+        # Desde WSL, RVM solo arranca en primer plano: con setsid ("tcgetpgrp failed: not a tty")
+        # o con & no llega a abrirse. Por eso bloquea la terminal hasta que se cierra.
         cd "$(dirname "$DSK")"
-        "$EXE" -b=cpc6128 -i "$(basename "$DSK")" -c="run\"$RUNNAME\n" </dev/null >/dev/null 2>&1 &
-        disown
+        echo "(la terminal queda ocupada hasta que cierres RetroVirtualMachine)"
+        "$EXE" -b=cpc6128 -i "$(basename "$DSK")" -c="run\"$RUNNAME\n"
         return
     fi
     cd "$(dirname "$EXE")"   # cap32 busca cap32.cfg en su propia carpeta
