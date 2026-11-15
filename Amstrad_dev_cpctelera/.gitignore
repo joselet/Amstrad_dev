@@ -27,6 +27,9 @@
 !/kung-fu/cfg/build_config.mk
 !/kung-fu/src/datos/*
 
+# 4d. rsx_bas: fuente en ensamblador del RSX (RASM)
+!/rsx_bas/*.asm
+
 # 5. Ficheros admitidos de la raíz:
 !*.sh
 !*.
